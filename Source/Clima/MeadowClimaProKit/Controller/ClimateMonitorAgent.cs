@@ -1,12 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using MeadowClimaProKit.Models;
-using Meadow;
+﻿using Meadow;
 using Meadow.Foundation.Sensors.Atmospheric;
 using Meadow.Foundation.Sensors.Weather;
 using MeadowClimaProKit.Database;
-using Meadow.Hardware;
+using MeadowClimaProKit.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace MeadowClimaProKit
 {
@@ -46,14 +44,14 @@ namespace MeadowClimaProKit
             bme680 = new Bme680(Device.CreateI2cBus(), (byte)Bme680.Addresses.Address_0x76);
             Console.WriteLine("Bme680 successully initialized.");
 
-            windVane = new WindVane(Device, MeadowApp.Device.Pins.A00);
+            windVane = new WindVane(MeadowApp.Device.Pins.A00);
             Console.WriteLine("WindVane up.");
 
-            anemometer = new SwitchingAnemometer(Device, MeadowApp.Device.Pins.A01);
+            anemometer = new SwitchingAnemometer(MeadowApp.Device.Pins.A01);
             anemometer.StartUpdating();
             Console.WriteLine("Anemometer up.");
 
-            rainGauge = new SwitchingRainGauge(Device, MeadowApp.Device.Pins.D11);
+            rainGauge = new SwitchingRainGauge(MeadowApp.Device.Pins.D11);
             rainGauge.StartUpdating();
             Console.WriteLine("Rain gauge up.");
 
@@ -73,7 +71,7 @@ namespace MeadowClimaProKit
             while (IsSampling)
             {
                 Console.WriteLine("ClimateMonitorAgent: About to do a reading.");
-                        
+
                 // capture history
                 oldClimate = Climate ?? new ClimateReading();
 
@@ -95,7 +93,7 @@ namespace MeadowClimaProKit
 
         void StopUpdating()
         {
-            if (!IsSampling) 
+            if (!IsSampling)
                 return;
 
             IsSampling = false;

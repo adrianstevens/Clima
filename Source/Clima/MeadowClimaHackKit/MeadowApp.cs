@@ -22,21 +22,21 @@ namespace MeadowClimaHackKit
         {
             LedController.Instance.SetColor(Color.Red);
 
-            buttonUp = new PushButton(Device, Device.Pins.D03);
-            buttonDown = new PushButton(Device, Device.Pins.D04);
-            buttonMenu = new PushButton(Device, Device.Pins.D05);
+            buttonUp = new PushButton(Device.Pins.D03);
+            buttonDown = new PushButton(Device.Pins.D04);
+            buttonMenu = new PushButton(Device.Pins.D05);
 
             buttonUp.Clicked += (s, e) => DisplayController.Instance.MenuUp();
             buttonDown.Clicked += (s, e) => DisplayController.Instance.MenuDown();
             buttonMenu.Clicked += (s, e) => DisplayController.Instance.MenuSelect();
 
             DisplayController.Instance.ShowSplashScreen();
-            
-            if (isWiFi) 
+
+            if (isWiFi)
             {
                 InitializeMaple().Wait();
             }
-            else 
+            else
             {
                 InitializeBluetooth();
             }

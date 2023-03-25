@@ -1,6 +1,6 @@
 ﻿using Meadow.Foundation;
-using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Displays;
+using Meadow.Foundation.Displays.TextDisplayMenu;
 using Meadow.Foundation.Graphics;
 using Meadow.Foundation.Graphics.Buffers;
 using Meadow.Hardware;
@@ -53,7 +53,6 @@ namespace MeadowClimaHackKit.Controller
 
             display = new St7789
             (
-                device: MeadowApp.Device,
                 spiBus: spiBus,
                 chipSelectPin: null,
                 dcPin: MeadowApp.Device.Pins.D01,
@@ -217,12 +216,12 @@ namespace MeadowClimaHackKit.Controller
             isRendering = false;
         }
 
-        public async Task StartWifiConnectingAnimation() 
+        public async Task StartWifiConnectingAnimation()
         {
             token = new CancellationTokenSource();
 
             while (!token.IsCancellationRequested)
-            {                
+            {
                 graphics.DrawBuffer(
                     x: graphics.Width / 2 - wifiConnecting.Width / 2,
                     y: 134,
@@ -241,7 +240,7 @@ namespace MeadowClimaHackKit.Controller
             }
         }
 
-        public void StopWifiConnectingAnimation() 
+        public void StopWifiConnectingAnimation()
         {
             token.Cancel();
         }
